@@ -1,0 +1,39 @@
+<!-- core/templates/core/liste_livre.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>📚 Livres disponibles</h2>
+
+  <div class="row">
+    {% for livre in livres %}
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ livre.titre }}</h5>
+            <p class="card-text">
+              <strong>Auteur :</strong> {{ livre.auteur.nom }}<br>
+              <strong>Catégorie :</strong> {{ livre.categorie.nom }}<br>
+              <strong>Date :</strong> {{ livre.date_publication }}<br>
+              <strong>Copies :</strong> {{ livre.copies_disponibles }}
+            </p>
+            {% if user.is_authenticated %}
+              {% if livre.copies_disponibles > 0 %}
+                <form method="post" action="{% url 'emprunter-livre' livre.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-success btn-sm">📖 Emprunter</button>
+                </form>
+              {% else %}
+                <span class="badge bg-secondary">Non disponible</span>
+              {% endif %}
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Connectez-vous pour emprunter</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">Aucun livre disponible pour le moment.</div>
+    {% endfor %}
+  </div>
+{% endblock %}
+

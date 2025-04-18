@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>📖 Mes emprunts</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Livre</th>
+          <th>Date d'emprunt</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for emprunt in emprunts %}
+        <tr>
+          <td>{{ emprunt.livre.titre }}</td>
+          <td>{{ emprunt.date_emprunt|date:"d/m/Y H:i" }}</td>
+          <td>
+            {% if emprunt.est_retourne %}
+              ✅ Retourné
+            {% else %}
+              📚 Emprunté
+            {% endif %}
+          </td>
+          <td>
+            {% if not emprunt.est_retourne %}
+              <form method="post" action="{% url 'retourner-livre' emprunt.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-sm">Retourner</button>
+              </form>
+            {% else %}
+              <span class="text-muted">Aucune action</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">Aucun emprunt en cours.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
