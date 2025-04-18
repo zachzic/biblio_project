@@ -40,14 +40,14 @@ class Emprunt(models.Model):
         return self.date_retour is not None
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # New borrow
+        if not self.pk:  # nouveau emprunt
             if self.livre.copies_disponibles > 0:
                 self.livre.copies_disponibles -= 1
                 self.livre.save()
             else:
                 raise ValueError("Aucune copie disponible pour ce livre.")
         elif self.est_retourne and not Emprunt.objects.filter(pk=self.pk, date_retour__isnull=True).exists():
-            # Book is being returned
+            # Livre est retourné, on incrémente le nombre de copies disponibles
             self.livre.copies_disponibles += 1
             self.livre.save()
         super().save(*args, **kwargs)

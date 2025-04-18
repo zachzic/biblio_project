@@ -13,10 +13,7 @@ class AuteurAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
 
 
-#admin.site.register(Auteur)
 admin.site.register(Categorie)
-#admin.site.register(Livre)
-#admin.site.register(Emprunt)
 
 
 #algo passme
