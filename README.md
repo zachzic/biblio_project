@@ -29,7 +29,15 @@ Bienvenue dans *Ma Bibliothèque*, une application Django permettant de gérer l
 
 ## 📸 Capture d’écran
 
-> Ajouter une capture ici si possible : liste des livres + interface d’emprunts.
+### 📚 Liste des livres
+![Liste des livres](screenshots/biblio%20p1.png)
+![Liste des livres](screenshots/biblio%20p1.1.png)
+
+### 🔐 Page de connexion
+![Login](screenshots/biblio%20p3.png)
+
+### 📖 Page des emprunts
+![Emprunts](screenshots/biblio%20p2.png)
 
 ---
 
